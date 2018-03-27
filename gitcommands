@@ -1,0 +1,181 @@
+Git commands list
+This is a list of the most common used git commands I use to have on my side when I haven't use git during a few days
+
+Get help
+# git help
+# git help <command>
+
+Configure system
+# git config --system : Configures file /etc/gitconfig
+
+Configure global
+# git config --global : Configures user’s file ~/.gitconfig
+
+List config options
+# git config [--system,--global] --list
+
+Edit config from editor
+# export EDITOR=[chosen editor]
+# git config [--system,--global] -e
+
+
+Some important or useful config options
+# git config --global user.name “name”
+# git config --global user.email “email”
+# git config --global core.editor vi
+# git config --global help.autocorrect 1
+# git config --global alias.lga “log –graph –oneline –decorate –all”
+# git config --global color.ui auto
+# git config --global core.autoctrlf input
+# git config --global format.pretty oneline
+
+Initialize repository
+# git init
+
+Get the stage status
+# git status : Displays differences between the index file and the current HEAD commit
+
+Add files to stage
+# git add [name or regular expression]
+# git add -u : Adds updated files to stage
+# git add -A : Adds all files, included untracked ones. Add deletions and new files to stage
+
+Commit changes
+# git commit -m “[message]”
+# git commit : Using the defined editor by config or EDITOR variable
+# git commit -am “message” : Automatically adds updated files to stage
+
+Revert to previous commit
+# git revert [commit number] : Undoes to a committed snapshot
+
+Show changes made in a commitment
+# git show : Shows changes made in the last commitment
+# git show [revision] : Shows changes made in the [revision] commitment
+# git show HEAD~[n] : Shows changes made in the (HEAD–n) commitment
+
+Check commit history
+# git log
+# git log --oneline : Compacted visualization
+# git log --graph : Graphs actual branch
+# git log --all : Shows all branches
+# git log --decorate : Shows master, branches and tags in commits
+
+Compacted log
+# git shortlog : Shows authors and commitments made by them
+# git log --format=short : Equal to git shortlog
+# git shortlog -sne : Only shows summary, number of commitments and email address
+
+Show differences between commits
+# git diff [hash1]..[hash2] : Differences between snapshot’s hashes
+# git diff HEAD~[num1]..HEAD~[num2] : Differences between num1 and num2 commits before HEAD pointer
+# git diff HEAD~1.. : Differences between HEAD pointer and last commit
+
+Recover file from repository after deletions
+# git checkout [file] : By default, from HEAD version
+# git checkout [branch or revision] [file] : Recovers file from branch or specified revision
+
+Reset to commit
+# git reset --hard : Resets the files to the HEAD status removing all the changes made from there
+# git reset --hard [revision] : Resets ALL files to [revision] removing ALL changes made from there
+# git reset --soft : Take out the last commit without deleting files or changes made to these. Deletes the last commit
+# git reset --soft [revision] :Moves HEAD pointer to other commit but without deleting any changes made in the files
+
+Delete garbage files
+# git clean -n : Shows which files is going to remove
+# git clean -f : Removes the files without warning
+
+Ignore files from repository
+Create file .gitignore in the root's repository directory and add all names to ignore with regular expressions
+  /[regular expression1] /[regular expression2] …
+
+Clone remote repository
+# git clone [HTTPS,GIT or SSH]
+
+Show remote repositories
+# git remote
+# git remote -v : Also show URL to push and fetch
+
+Show branches
+# git branch : Local branches
+# git branch -r : Remote branches
+
+Show tags
+# git tag
+
+Add remote repository
+# git remote add [name] URL
+
+Remove remote repository
+# git remote rm origin
+
+“Refresh” all changes made in remote repository
+# git fetch
+# git fetch [remote name] : In case of multiple remote repositories
+
+Merge updated remote repository
+# git merge
+# git pull : Like use the "commands git fetch; git merge origin/master", is used to update our local repository
+
+Configure remote branch to mirror our local branch
+# git branch -u origin/[remote branch] : Defines the default origin and branch to mirror our local branch
+
+Pushing local commitment to remote repository
+# git push
+
+Add tags
+# git tag [name] : Tags HEAD
+# git tag [name] [revision] : Tags a commitment
+# git tag -a [tag] : Adds a tag with a message
+# git tag -s [tag] : Adds a signed tag. Needs certificates
+# git tag -m [tag] [tag2] : Renames a tag
+
+Push tags
+By default git push doesn't push tags
+# git push --tags
+
+Create branches
+# git branch [branch's name]
+# git branch [branch's name] [tag in which is based]
+
+Go to a branches
+# git checkout [branch name]
+# git checkout -b [branch name] : Creates the branch and goes to it
+
+Rename branches
+# git branch -m [old name] [new name]
+
+Delete branches
+# git branch -d [branch's name] : Deletes a branch. If this branch is not merged, the only way to delete it is by forcing the deleting and losing all changes in it with:
+# git branch -D [branch's name]
+
+Log of all references
+# git reflog : Logs of all references where HEAD has pointed (kept during 30 days)
+
+Create a branch from reflog to recover deleted branch
+# git branch [branch's name] [commit's SHA]
+
+Take a “snapshot” of current work to continue later with stash
+# git stash : Save changes made from HEAD into a stash ares and reverts to HEAD state
+# git stash list : Lists stash saved
+# git stash apply : Applies stash saved but without dropping stash data
+# git stash pop : Applies first stash saved and delete it
+# git stash drop : Drops the first stash on the pile
+# git stash branch [new branch] : Applies stash onto a new branch
+
+Merge branches
+From source branch
+# git merge [destination branch]
+
+Merge conflicts
+# export GIT_EXTERNAL_DIFF=[merge app used]
+# git mergetool
+
+Create remote branches
+# git push origin [local branch] : Pushes local branch to remote
+# git push origin [local branch]:[remote branch] : Pushes local branch as a new remote branch
+
+Delete remote branches
+# git push origin :[remote branch] : Same as create, but without the local branch name
+
+List remote branches
+# git branch -r
